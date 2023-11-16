@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\UsuarioRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -33,7 +34,7 @@ class UsuarioController extends Controller
             'nombre' => $request->nombre,
             'prim_apellido' => $request->prim_apellido,
             'seg_apellido' => $request->seg_apellido,
-            'clave_acceso' => $request->clave_acceso,
+            'clave_acceso' => Hash::make($request->clave_acceso),
             'fecha_registro' => $request->fecha_registro,
             'id_area' => $request->id_area,
             'id_rol' => $request->id_rol,

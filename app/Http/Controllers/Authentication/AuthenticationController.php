@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class AuthenticationController extends Controller
 {
     public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
@@ -33,9 +33,17 @@ class AuthController extends Controller
 
     public function logout()
     {
+        if(Auth::check())
+        {
+            Auth::user()->tokens()->where('id', Auth::user()->currentAccessToken()->id)->delete();
 
-        return response()->json([
-            'message' => 'Cerro session correctamente'
-        ],200);
+            return response()->json([
+                'message' => 'Cerro session correctamente'
+            ],200);
+        } else {
+            return response()->json([
+                'message' => 'No hay session activa para cerrar'
+            ],401);
+        }
     }
 }
