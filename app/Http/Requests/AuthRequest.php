@@ -22,7 +22,7 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_usuario' => 'required|min:6|max:6',
+            'id_usuario' => 'required',
             'clave_acceso' => 'required|min:8'
         ];
     }

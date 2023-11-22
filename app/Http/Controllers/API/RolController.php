@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Rol;
 
 class RolController extends Controller
 {
@@ -12,7 +13,11 @@ class RolController extends Controller
      */
     public function index()
     {
-        //
+        $rol = Rol::all();
+
+        return response()->json([
+            'message' => $rol
+        ],200);
     }
 
     /**
@@ -20,7 +25,14 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rol = Rol::create([
+            'id_rol'=> $request->input('id_rol'),
+            'descripcion'=> $request->input('descripcion'),
+        ]);
+
+        return response()->json([
+            'message' => $rol
+        ]);
     }
 
     /**
@@ -28,7 +40,11 @@ class RolController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $rol = Rol::findOrFail($id);
+
+        return response()->json([
+            'message' => $rol
+        ],200);
     }
 
     /**
@@ -36,7 +52,15 @@ class RolController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $descripcion = $request->input('descripcion');
+
+        $rol = Rol::find($id);
+        $rol->update(['descripcion' => $descripcion]);
+
+        return response()->json([
+            'message'=> $rol,
+            'status' => 'Actualizado Correctamente'
+        ],200);
     }
 
     /**
@@ -44,6 +68,11 @@ class RolController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $rol = Rol::find( $id);
+        $rol->delete();
+
+        return response()->json([
+            'message' => 'Eliminado correctamente'
+        ],200);
     }
 }

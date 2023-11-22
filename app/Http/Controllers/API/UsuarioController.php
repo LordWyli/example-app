@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Http\Requests\UsuarioRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
@@ -15,11 +16,12 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::all();
+
+        $user  = DB::select('select * from vista_usuarios');
 
         return response()->json([
             'status' => 200,
-            'data' => $usuarios
+            'data' => $user
         ]);
     }
 
@@ -62,27 +64,24 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UsuarioRequest $request, string $id)
     {
-        $nombre = $request->nombre;
-        $prim_apellido = $request->prim_apellido;
-        $seg_apellido = $request->seg_apellido;
-        $clave_acceso = $request->clave_acceso;
-        $id_area = $request->id_area;
-        $id_rol = $request->id_rol;
-        $estado = $request->estado;
+        $usuario = Usuario::findOrFail($id);
 
-        $updateUsuario = Usuario::find($id);
-        $updateUsuario->update(['nombre' => $nombre]);
-        $updateUsuario->update(['prim_apellido' => $prim_apellido]);
-        $updateUsuario->update(['seg_apellido' => $seg_apellido]);
-        $updateUsuario->update(['clave_acceso' => $clave_acceso]);
-        $updateUsuario->update(['id_area' => $id_area]);
-        $updateUsuario->update(['id_rol' => $id_rol]);
-        $updateUsuario->update(['estado' => $estado]);
+        $usuario->update([
+            'nombre'=> $request->nombre,
+            'prim_apellido'=> $request->prim_apellido,
+            'seg_apellido'=> $request->seg_apellido,
+            'clave_acceso'=> Hash::make($request->clave_acceso),
+            'id_area'=> $request->id_area,
+            'id_rol'=> $request->id_rol,
+            'estado'=> $request->estado
+        ]);
 
         return response()->json([
-            'message' => 'Usuario actualizado correctamente'
+            'status'=> 'success',
+            'message' => 'Usuario actualizado correctamente',
+            'data' => $usuario
         ],200);
     }
 
