@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UsuarioRequest extends FormRequest
+class TipoSensorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,8 @@ class UsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id_usuario' => 'required',
-            'nombre' => 'required|max:15',
-            'prim_apellido' => 'required|max:25',
-            'seg_apellido' => 'required|max:25',
-            'clave_acceso' => 'required|min:8',
-            'fecha_registro' => 'required|date',
-            'id_area' => 'required|max:2|min:1',
-            'id_rol' => 'required|max:2|min:1',
-            'estado' => 'required|max:2|min:1'
+            'nombre' => 'required|min:15',
+            'descripcion' => 'required|min:20'
         ];
     }
 }

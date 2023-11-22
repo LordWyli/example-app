@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Models\Rol;
 
 class Usuario extends Authenticatable
 {
@@ -26,4 +26,8 @@ class Usuario extends Authenticatable
     ];
     protected $hidden = ['clave_acceso'];
     public $timestamps = false;
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class,'id_rol','id_rol');
+    }
 }
