@@ -4,6 +4,7 @@ namespace App\Models\IoT;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\SensorMovimientoObserver;
 
 class SensorMovimiento extends Model
 {
@@ -15,4 +16,9 @@ class SensorMovimiento extends Model
         'fecha_hora',
         'estado'
     ];
+    protected static function boot()
+    {
+        parent::boot();
+        static::observe(SensorMovimientoObserver::class);
+    }
 }
