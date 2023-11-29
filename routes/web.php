@@ -14,8 +14,9 @@ use App\Http\Controllers\DemoController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/demo',[DemoController::class,'demo']);
+Route::view('/test','home');
+

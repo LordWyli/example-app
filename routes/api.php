@@ -7,6 +7,8 @@ use App\Http\Controllers\API\TipoSensorController;
 use App\Http\Controllers\API\AreaController;
 use App\Http\Controllers\API\DepartamentoController;
 use App\Http\Controllers\API\RolController;
+use App\Http\Controllers\IoT\WebSocketController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,4 +77,8 @@ Route::middleware('auth:sanctum')->group(function (){
     });
 
     Route::get('/logout',[AuthenticationController::class,'logout']);
+
+
 });
+
+Route::get('/websockets',[WebSocketController::class,'getData']);

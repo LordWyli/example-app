@@ -10,19 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class IoTdataEvent
+class SensorMovimientosEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    public $data;
 
-    public $datos;
     /**
      * Create a new event instance.
      *
-     * @param $datos;
+     * @param $data;
      */
-    public function __construct($datos)
+    public function __construct($data)
     {
-        $this->datos = $datos;
+        $this->data = $data;
     }
 
     /**
@@ -33,7 +33,7 @@ class IoTdataEvent
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-IoT'),
+            new Channel('sensorMovimiento'),
         ];
     }
 }
