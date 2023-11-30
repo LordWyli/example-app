@@ -8,6 +8,8 @@ use App\Http\Controllers\API\AreaController;
 use App\Http\Controllers\API\DepartamentoController;
 use App\Http\Controllers\API\RolController;
 use App\Http\Controllers\IoT\WebSocketController;
+use App\Http\Controllers\API\RegistroAccesoController;
+use App\Http\Controllers\API\SensorMovimientoController;
 
 
 /*
@@ -23,7 +25,7 @@ use App\Http\Controllers\IoT\WebSocketController;
 
 Route::get('/login',[AuthenticationController::class,'login']);
 
-Route::middleware(['auth:sanctum','cors'])->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
     Route::group(['prefix'=> 'usuario'], function (){
         Route::get('/',[UsuarioController::class,'index']);
@@ -78,6 +80,8 @@ Route::middleware(['auth:sanctum','cors'])->group(function () {
 
     Route::get('/logout',[AuthenticationController::class,'logout']);
 
+    Route::get('/accesos',[RegistroAccesoController::class,'index']);
+    Route::get('/sensores_movimientos',[SensorMovimientoController::class,'index']);
 
 });
 
