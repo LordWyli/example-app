@@ -23,7 +23,7 @@ use App\Http\Controllers\IoT\WebSocketController;
 
 Route::get('/login',[AuthenticationController::class,'login']);
 
-Route::middleware('auth:sanctum')->group(function (){
+Route::middleware(['auth:sanctum','cors'])->group(function () {
 
     Route::group(['prefix'=> 'usuario'], function (){
         Route::get('/',[UsuarioController::class,'index']);
